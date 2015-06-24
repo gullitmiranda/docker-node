@@ -6,7 +6,7 @@ ENV VERSION=v0.11.9 CMD=node DOMAIN=nodejs.org
 ENV NPM_VERSION=2.11.3
 
 RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxmark openssl-dev zlib-dev" \
-  && apk add libcrypto1.0 libgcc libstdc++ libuv-dev $DEL_PACKS \
+  && apk add --update libcrypto1.0 libgcc libstdc++ libuv-dev $DEL_PACKS \
   && cd /var/tmp \
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz \
   && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl" \
