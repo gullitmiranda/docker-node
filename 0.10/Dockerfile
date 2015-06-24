@@ -5,13 +5,13 @@ MAINTAINER Azuki <support@azukiapp.com>
 ENV VERSION=v0.10.39 CMD=node DOMAIN=nodejs.org CFLAGS="-D__USE_MISC"
 ENV NPM_VERSION=2.11.3
 
-RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxmark" \
-  && apk add --update libcrypto1.0 libgcc libstdc++ $DEL_PACKS \
+RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxmark openssl-dev zlib-dev" \
+  && apk add --update libcrypto1.0 libgcc libstdc++ libuv-dev $DEL_PACKS \
   && cd /var/tmp \
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz
 
 RUN cd /var/tmp/${CMD}-${VERSION} \
-  && CONFIG_FLAGS="--dest-cpu=arm --dest-os=linux" \
+  && CONFIG_FLAGS="--shared-zlib --shared-libuv --dest-cpu=arm --dest-os=linux" \
   && ./configure --prefix=/usr ${CONFIG_FLAGS}
 
 RUN  cd /var/tmp/${CMD}-${VERSION} \
