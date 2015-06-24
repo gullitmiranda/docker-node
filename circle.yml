@@ -18,6 +18,7 @@ dependencies:
     - sudo bats-0.4.0/install.sh /usr/local
   override:
     - export DOCKER=$(if [ "$(which adocker)" ]; then which adocker; else which docker; fi; exit 0)
+    - echo ${DOCKER}
     - alias adocker=${DOCKER}
     - adocker info
     - adocker build -t azukiapp/node 0.12:
