@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+if [ ! "$(which adocker)" ]; then
+	alias adocker=docker
+fi;
+
+exec ${1-bash}

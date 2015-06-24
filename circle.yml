@@ -17,9 +17,6 @@ dependencies:
     - tar -xf ~/deps/bats_v0.4.0.tar.gz
     - sudo bats-0.4.0/install.sh /usr/local
   override:
-    - export DOCKER=$(if [ "$(which adocker)" ]; then which adocker; else which docker; fi; > /dev/null 2>&1)
-    - echo ${DOCKER}
-    - alias adocker=${DOCKER}
     - adocker info
     - adocker build -t azukiapp/node 0.12:
         parallel: true
@@ -29,7 +26,7 @@ dependencies:
         parallel: true
     - adocker build -t azukiapp/node:0.10 0.10:
         parallel: true
-    - docker images
+    - adocker images
 
 test:
   override:
