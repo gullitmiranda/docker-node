@@ -17,9 +17,21 @@ dependencies:
     - tar -xf ~/deps/bats_v0.4.0.tar.gz
     - sudo bats-0.4.0/install.sh /usr/local
   override:
-    - alias adocker=$(which docker)
-    - docker info
-    - docker images
+    - export DOCKER=$(shell if [ "$(which adocker)" ]; then which adocker; else which docker; fi)
+    - alias adocker=${DOCKER}
+    - adocker info
+    - adocker images
+
+build:
+  override:
+    - adocker build -t azukiapp/node 0.12:
+        parallel: true
+    - adocker build -t azukiapp/node:0.12 0.12:
+        parallel: true
+    - adocker build -t azukiapp/node:0.11 0.11:
+        parallel: true
+    - adocker build -t azukiapp/node:0.10 0.10:
+        parallel: true
 
 test:
   override:
