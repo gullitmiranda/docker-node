@@ -17,6 +17,7 @@ dependencies:
     - tar -xf ~/deps/bats_v0.4.0.tar.gz
     - sudo bats-0.4.0/install.sh /usr/local
   override:
+    - alias adocker=$(which docker)
     - docker info
     - docker images
 
