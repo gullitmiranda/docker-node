@@ -11,7 +11,7 @@ RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxma
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz
 
 RUN cd /var/tmp/${CMD}-${VERSION} \
-  && CONFIG_FLAGS="--shared-zlib --shared-libuv --dest-cpu=arm --dest-os=linux" \
+  && CONFIG_FLAGS="--shared-zlib --shared-libuv --openssl-no-asm" \
   && ./configure --prefix=/usr ${CONFIG_FLAGS}
 
 RUN  cd /var/tmp/${CMD}-${VERSION} \
