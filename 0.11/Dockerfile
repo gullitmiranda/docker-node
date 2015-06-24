@@ -2,7 +2,7 @@ FROM azukiapp/alpine
 MAINTAINER Azuki <support@azukiapp.com>
 
 # NodeJS or IOJS
-ENV VERSION=v0.11.9 CMD=node DOMAIN=nodejs.org
+ENV VERSION=v0.11.16 CMD=node DOMAIN=nodejs.org
 ENV NPM_VERSION=2.11.3
 
 RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxmark openssl-dev zlib-dev" \
