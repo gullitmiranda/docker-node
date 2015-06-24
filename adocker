@@ -4,4 +4,4 @@ if [ ! "$(which adocker)" ]; then
 	alias adocker=docker
 fi;
 
-exec "$@"
+exec adocker "$@"
