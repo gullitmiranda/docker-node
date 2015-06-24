@@ -8,14 +8,21 @@ ENV NPM_VERSION=2.11.3
 RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxmark openssl-dev zlib-dev" \
   && apk add --update libcrypto1.0 libgcc libstdc++ libuv-dev $DEL_PACKS \
   && cd /var/tmp \
-  && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz \
+  && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz
+
+RUN cd /var/tmp/${CMD}-${VERSION} \
   && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl" \
-  && cd ${CMD}-${VERSION} \
-  && ./configure --prefix=/usr ${CONFIG_FLAGS} \
-  && make \
-  && make install \
-  && paxctl -cm /usr/bin/${CMD} \
-  && apk del --purge ${DEL_PACKS} \
+  && ./configure --prefix=/usr ${CONFIG_FLAGS}
+
+RUN  cd /var/tmp/${CMD}-${VERSION} \
+  && make
+
+RUN  cd /var/tmp/${CMD}-${VERSION} \
+  && make install
+
+RUN  paxctl -cm /usr/bin/${CMD}
+
+RUN  apk del --purge ${DEL_PACKS} \
   && rm -rf /var/cache/apk/* /var/tmp/* /usr/include \
     /usr/share/man /root/.node-gyp
 
