@@ -15,7 +15,7 @@ RUN cd /var/tmp/${CMD}-${VERSION} \
   && ./configure --prefix=/usr ${CONFIG_FLAGS}
 
 RUN  cd /var/tmp/${CMD}-${VERSION} \
-  && make
+  && make -C out BUILDTYPE=Release V=1
 
 RUN  cd /var/tmp/${CMD}-${VERSION} \
   && make install
