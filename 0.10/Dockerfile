@@ -2,6 +2,7 @@ FROM azukiapp/alpine
 MAINTAINER Azuki <support@azukiapp.com>
 
 # NodeJS or IOJS
+# OPENSSL_TARGET=linux-x86_64-openwrt
 ENV VERSION=v0.10.9 CMD=node DOMAIN=nodejs.org CFLAGS="-D__USE_MISC"
 ENV NPM_VERSION=2.11.3
 
@@ -11,7 +12,7 @@ RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxma
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz
 
 RUN cd /var/tmp/${CMD}-${VERSION} \
-  # && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl" \
+  && CONFIG_FLAGS="--shared-zlib --shared-libuv --no-ssl" \
   && ./configure --prefix=/usr ${CONFIG_FLAGS}
 
 RUN  cd /var/tmp/${CMD}-${VERSION} \
