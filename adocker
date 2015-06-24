@@ -1,7 +1,9 @@
 #!/bin/sh
 
-if [ ! "$(which adocker)" ]; then
-	alias adocker=docker
+adocker=$(which adocker)
+
+if [ -z "$adocker" ]; then
+	adocker="$(which docker)"
 fi;
 
-exec adocker "$@"
+exec $adocker "$@"
