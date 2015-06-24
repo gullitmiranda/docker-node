@@ -15,8 +15,8 @@ RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxma
   && make \
   && make install \
   && paxctl -cm /usr/bin/${CMD} \
-  && apk del ${DEL_PACKS} \
-  && rm -rf /var/cache/apk/* /var/tmp/* /etc/ssl /usr/include \
+  && apk del --purge ${DEL_PACKS} \
+  && rm -rf /var/cache/apk/* /var/tmp/* /usr/include \
     /usr/share/man /root/.node-gyp \
   && cd / \
   if [ -x /usr/bin/npm -a -n "${NPM_VERSION}" ]; then \
