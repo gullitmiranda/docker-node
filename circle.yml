@@ -18,6 +18,8 @@ dependencies:
     - sudo bats-0.4.0/install.sh /usr/local
   override:
     - alias adocker="$(pwd)/adocker"
+    - $(pwd)/adocker
+    - alias adocker
     - adocker info
     - adocker build -t azukiapp/node 0.12:
         parallel: true
