@@ -21,9 +21,6 @@ dependencies:
     - alias adocker=${DOCKER}
     - adocker info
     - adocker images
-
-build:
-  override:
     - adocker build -t azukiapp/node 0.12:
         parallel: true
     - adocker build -t azukiapp/node:0.12 0.12:
@@ -32,6 +29,7 @@ build:
         parallel: true
     - adocker build -t azukiapp/node:0.10 0.10:
         parallel: true
+    - docker images
 
 test:
   override:
