@@ -9,11 +9,18 @@ RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxma
   && apk add --update libcrypto1.0 libgcc libstdc++ libuv-dev $DEL_PACKS \
   && cd /var/tmp \
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz \
-  && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl" \
-  && cd ${CMD}-${VERSION} \
-  && ./configure --prefix=/usr ${CONFIG_FLAGS} \
-  && make \
-  && make install \
+  && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl"
+
+RUN  cd ${CMD}-${VERSION} \
+  && ./configure --prefix=/usr ${CONFIG_FLAGS}
+
+RUN  cd ${CMD}-${VERSION} \
+  && make
+
+RUN  cd ${CMD}-${VERSION} \
+  && make install
+
+RUN  cd ${CMD}-${VERSION} \
   && paxctl -cm /usr/bin/${CMD} \
   && apk del --purge ${DEL_PACKS} \
   && rm -rf /var/cache/apk/* /var/tmp/* /usr/include \
