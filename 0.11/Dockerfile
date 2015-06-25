@@ -11,17 +11,16 @@ RUN  DEL_PACKS="make gcc g++ python linux-headers paxctl python c-ares-dev paxma
   && curl -SL https://${DOMAIN}/dist/${VERSION}/${CMD}-${VERSION}.tar.gz | tar -xz \
   && CONFIG_FLAGS="--shared-zlib --shared-libuv --shared-openssl"
 
-RUN  cd ${CMD}-${VERSION} \
+RUN  cd /var/tmp/${CMD}-${VERSION} \
   && ./configure --prefix=/usr ${CONFIG_FLAGS}
 
-RUN  cd ${CMD}-${VERSION} \
+RUN  cd /var/tmp/${CMD}-${VERSION} \
   && make
 
-RUN  cd ${CMD}-${VERSION} \
+RUN  cd /var/tmp/${CMD}-${VERSION} \
   && make install
 
-RUN  cd ${CMD}-${VERSION} \
-  && paxctl -cm /usr/bin/${CMD} \
+RUN  paxctl -cm /usr/bin/${CMD} \
   && apk del --purge ${DEL_PACKS} \
   && rm -rf /var/cache/apk/* /var/tmp/* /usr/include \
     /usr/share/man /root/.node-gyp \
