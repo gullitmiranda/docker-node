@@ -8,7 +8,7 @@ IMAGE=azukiapp/node:$VERSION
 @test "node version is correct" {
   run docker run "$IMAGE" node --version
   [ $status -eq 0 ]
-  assert_match  "^$VERSION.*"
+  assert_match  "^v$VERSION"
 }
 
 @test "npm version is correct" {
