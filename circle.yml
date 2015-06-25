@@ -18,8 +18,6 @@ dependencies:
     - sudo bats-0.4.0/install.sh /usr/local
   override:
     - ./adocker info
-    - ./adocker build -t azukiapp/node:0.11 0.11:
-        parallel: true
     - ./adocker build -t azukiapp/node:0.12 0.12:
         parallel: true
     - ./adocker build -t azukiapp/node 0.12:
